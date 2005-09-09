@@ -3,7 +3,7 @@ Name:		tor
 Version:	0.1.0.14
 Release:	0.1
 Source0:	http://tor.eff.org/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	f210023a97b5b97d1517a47f587876b9
+# Source0-md5:	a3698218371ed0e647886fef0545bb44
 Source1:	%{name}.logrotate
 URL:		http://tor.eff.org/
 Group:		Networking/Daemons
