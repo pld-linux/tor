@@ -1,17 +1,21 @@
 Summary:	Anonymizing overlay network for TCP (The onion router)
+Summary(pl):	Sieæ nak³adkowa dla TCP zapewniaj±ca anonimowo¶æ (router cebulowy)
 Name:		tor
 Version:	0.1.0.14
 Release:	0.1
+License:	BSD-like
+Group:		Networking/Daemons
 Source0:	http://tor.eff.org/dist/%{name}-%{version}.tar.gz
 # Source0-md5:	a3698218371ed0e647886fef0545bb44
 Source1:	%{name}.logrotate
 URL:		http://tor.eff.org/
-Group:		Networking/Daemons
-License:	BSD-like
 BuildRequires:	libevent-devel
 BuildRequires:	openssl-devel >= 0.9.6
 BuildRequires:	rpm-build >= 4.0
-Requires(pre):	shadow-utils, /usr/bin/id, /bin/date, /bin/sh
+Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -37,8 +41,32 @@ bugs. The present network is very small -- this further reduces the
 strength of the anonymity provided. Tor is not presently suitable for
 high-stakes anonymity.
 
+%description -l pl
+Tor to oparty na po³±czeniach system anonimowej komunikacji o ma³ych
+opó¼nieniach.
+
+Ten pakiet dostarcza program "tor", s³u¿±cy zarówno jako klient, jak i
+wêze³ przeka¼nikowy. Skrypty automatycznie tworz± u¿ytkownika i grupê
+"tor" i konfiguruj± tora do dzia³ania jako demon po uruchomieniu
+systemu.
+
+Aplikacje ³±cz± siê z lokalnym proxy Tor przy u¿yciu protoko³u SOCKS.
+Lokalne proxy wybiera ¶cie¿kê poprzez zbiór przeka¼ników, z których
+ka¿dy zna swojego poprzednika i nastêpnika, ale ¿adnego wiêcej. Ruch
+przychodz±cy jest rozpakowywany przy u¿yciu klucza symetrycznego na
+ka¿dym przeka¼niku, który ods³ania kolejny przeka¼nik.
+
+Uwaga: Tor nie oczyszcza protoko³ów. Oznacza to, ¿e istnieje
+niebezpieczeñstwo, ¿e protoko³y aplikacji i powi±zane programy mog±
+odkryæ informacje o pochodzeniu. Tor polega na Privoxy i podobnych
+oczyszczaczach protoko³ów w celu rozwi±zania tego problemu. To jest
+kod alpha, wiêc mo¿e mieæ wiêcej b³êdów psuj±cych anonimowo¶æ ni¿ kod
+wydany. Obecna sieæ jest bardzo ma³a - co w dalszym stopniu ogranicza
+zapewnian± anonimowo¶æ. Tor aktualnie nie nadaje siê do zadañ
+wymagaj±cych anonimowo¶ci na wysok± stawkê.
+
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 %build
 %configure
@@ -54,9 +82,9 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/torrc{.sample,}
 install -D contrib/tor.sh $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 install -D %{SOURCE1}     $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 
-%{__mkdir_p} $RPM_BUILD_ROOT/var/lib/%{name}
-%{__mkdir_p} $RPM_BUILD_ROOT/var/run/%{name}
-%{__mkdir_p} $RPM_BUILD_ROOT/var/log/{,archiv/}%{name}
+install -d $RPM_BUILD_ROOT/var/lib/%{name}
+install -d $RPM_BUILD_ROOT/var/run/%{name}
+install -d $RPM_BUILD_ROOT/var/log/{,archiv/}%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -64,7 +92,8 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 %groupadd -g 156 tor
 %useradd  -u 156 -r -d /var/lib/tor -s /bin/false -c "Tor" -g tor tor
-[ -f %{_initrddir}/%{name}  ] && /sbin/service %{name} stop
+# ???
+/etc/rc.d/init.d/tor stop
 
 %post
 /sbin/chkconfig --add %{name}
@@ -86,8 +115,8 @@ fi
 %doc AUTHORS INSTALL LICENSE README ChangeLog doc/HACKING doc/TODO doc/FAQ
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man?/*
-%config %{_initrddir}/%{name}
-%dir %attr(755,root,tor) %{_sysconfdir}/%{name}/
+/etc/rc.d/init.d/%{name}
+%dir %attr(755,root,tor) %{_sysconfdir}/%{name}
 %attr(644,root,tor)  %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/*
 %attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}
 %dir %attr(750,root,tor) /var/lib/%{name}
