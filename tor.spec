@@ -1,13 +1,15 @@
 Summary:	Anonymizing overlay network for TCP (The onion router)
 Summary(pl):	Sieæ nak³adkowa dla TCP zapewniaj±ca anonimowo¶æ (router cebulowy)
 Name:		tor
-Version:	0.1.0.14
-Release:	0.1
+Version:	0.1.0.15
+Release:	0.2
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://tor.eff.org/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	a3698218371ed0e647886fef0545bb44
+# Source0-md5:	b2f1002da96ebfbfac7edf2272733967
 Source1:	%{name}.logrotate
+Source2:	%{name}.init
+Source3:	%{name}.sysconfig
 URL:		http://tor.eff.org/
 BuildRequires:	libevent-devel
 BuildRequires:	openssl-devel >= 0.9.6
@@ -79,8 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 mv $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/torrc{.sample,}
-install -D contrib/tor.sh $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
-install -D %{SOURCE1}     $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
+install -D %{SOURCE1} $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
+install -D %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
+install -D %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
 install -d $RPM_BUILD_ROOT/var/lib/%{name}
 install -d $RPM_BUILD_ROOT/var/run/%{name}
@@ -92,8 +95,6 @@ rm -rf $RPM_BUILD_ROOT
 %pre
 %groupadd -g 156 tor
 %useradd  -u 156 -r -d /var/lib/tor -s /bin/false -c "Tor" -g tor tor
-# ???
-/etc/rc.d/init.d/tor stop
 
 %post
 /sbin/chkconfig --add %{name}
@@ -110,15 +111,23 @@ if [ "$1" = "0" ]; then
 	#%{__rm} -f ${_localstatedir}/lib/%{name}/fingerprint
 fi
 
+%postun
+if [ "$1" = "0" ]; then
+	%userremove  tor
+	%groupremove tor
+fi
+
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS INSTALL LICENSE README ChangeLog doc/HACKING doc/TODO doc/FAQ
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man?/*
-/etc/rc.d/init.d/%{name}
-%dir %attr(755,root,tor) %{_sysconfdir}/%{name}
-%attr(644,root,tor)  %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/*
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}
+%attr(755,root,root) /etc/rc.d/init.d/%{name}
+%dir %attr(750,root,tor) %{_sysconfdir}/%{name}
+%attr(640,root,tor)  %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/*
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/*
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}
 %dir %attr(750,root,tor) /var/lib/%{name}
 %dir %attr(750,root,tor) /var/run/%{name}
-%dir %attr(750,root,tor) /var/log/{,archiv/}%{name}
+%dir %attr(750,root,tor) /var/log/%{name}
+%dir %attr(750,root,tor) /var/log/archiv/%{name}
