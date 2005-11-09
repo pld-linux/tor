@@ -2,7 +2,7 @@ Summary:	Anonymizing overlay network for TCP (The onion router)
 Summary(pl):	Sieæ nak³adkowa dla TCP zapewniaj±ca anonimowo¶æ (router cebulowy)
 Name:		tor
 Version:	0.1.0.15
-Release:	0.2
+Release:	1
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://tor.eff.org/dist/%{name}-%{version}.tar.gz
@@ -104,11 +104,6 @@ rm -rf $RPM_BUILD_ROOT
 if [ "$1" = "0" ]; then
 	%service -q %{name} stop
 	/sbin/chkconfig --del %{name}
-	#%{__rm} -f ${_localstatedir}/lib/%{name}/cached-directory
-	#%{__rm} -f ${_localstatedir}/lib/%{name}/bw_accounting
-	#%{__rm} -f ${_localstatedir}/lib/%{name}/control_auth_cookie
-	#%{__rm} -f ${_localstatedir}/lib/%{name}/router.desc
-	#%{__rm} -f ${_localstatedir}/lib/%{name}/fingerprint
 fi
 
 %postun
