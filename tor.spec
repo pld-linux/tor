@@ -14,6 +14,8 @@ URL:		http://tor.eff.org/
 BuildRequires:	libevent-devel
 BuildRequires:	openssl-devel >= 0.9.6
 BuildRequires:	rpm-build >= 4.0
+Provides:	group(tor)
+Provides:	user(tor)
 Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
