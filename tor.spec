@@ -14,21 +14,20 @@ URL:		http://tor.eff.org/
 BuildRequires:	libevent-devel
 BuildRequires:	openssl-devel >= 0.9.6
 BuildRequires:	rpm-build >= 4.0
-Provides:	group(tor)
-Provides:	user(tor)
 Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
+Provides:	group(tor)
+Provides:	user(tor)
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Tor is a connection-based low-latency anonymous communication system.
 
 This package provides the "tor" program, which serves as both a client
-and a relay node. Scripts will automatically create a "tor"
-user and group, and set tor up to run as a daemon when the system is
-rebooted.
+and a relay node. Scripts will automatically create a "tor" user and
+group, and set tor up to run as a daemon when the system is rebooted.
 
 Applications connect to the local Tor proxy using the SOCKS protocol.
 The local proxy chooses a path through a set of relays, in which each
@@ -119,7 +118,7 @@ fi
 %doc AUTHORS INSTALL LICENSE README ChangeLog doc/HACKING doc/TODO doc/FAQ
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man?/*
-%attr(755,root,root) /etc/rc.d/init.d/%{name}
+%attr(754,root,root) /etc/rc.d/init.d/%{name}
 %dir %attr(750,root,tor) %{_sysconfdir}/%{name}
 %attr(640,root,tor)  %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/*
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/*
