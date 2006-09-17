@@ -60,7 +60,7 @@ case "$1" in
 		killproc tor -HUP
 		RETVAL=$?
 	else
-		msg_not_running tor >&2
+		msg_not_running tor
 		RETVAL=7
 	fi
 	;;
