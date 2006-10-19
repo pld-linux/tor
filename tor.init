@@ -28,8 +28,7 @@ else
 	exit 0
 fi
 
-case "$1" in
-  start)
+start() {
 	if [ ! -f /var/lock/subsys/tor ]; then
 		msg_starting tor
 		daemon tor --user $TOR_USER --group $TOR_GROUP \
@@ -39,8 +38,9 @@ case "$1" in
 	else
 		msg_already_running tor
 	fi
-	;;
-  stop)
+}
+
+stop() {
 	if [ -f /var/lock/subsys/tor ]; then
 		msg_stopping tor
 		killproc --pidfile /var/run/tor.pid tor
@@ -48,13 +48,21 @@ case "$1" in
 	else
 		msg_not_running tor
 	fi
+}
+
+RETVAL=0
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
 	;;
   restart)
-	$0 stop
-	$0 start
-	exit $?
+	stop
+	start
 	;;
-  reload)
+  reload|force-reload)
 	if [ -f /var/lock/subsys/tor ]; then
 		msg_reloading tor
 		killproc tor -HUP
@@ -63,11 +71,6 @@ case "$1" in
 		msg_not_running tor
 		RETVAL=7
 	fi
-	;;
-  force-reload)
-	# if program allows reloading without stopping
-	$0 reload
-	exit $?
 	;;
   status)
 	status tor
@@ -79,6 +82,3 @@ case "$1" in
 esac
 
 exit $RETVAL
-
-# This must be last line !
-# vi:syntax=sh:ts=8:sw=4
