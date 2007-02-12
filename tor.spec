@@ -1,5 +1,5 @@
 Summary:	Anonymizing overlay network for TCP (The onion router)
-Summary(pl):	Sieæ nak³adkowa dla TCP zapewniaj±ca anonimowo¶æ (router cebulowy)
+Summary(pl.UTF-8):   SieÄ‡ nakÅ‚adkowa dla TCP zapewniajÄ…ca anonimowoÅ›Ä‡ (router cebulowy)
 Name:		tor
 Version:	0.1.1.22
 Release:	4
@@ -47,29 +47,29 @@ bugs. The present network is very small -- this further reduces the
 strength of the anonymity provided. Tor is not presently suitable for
 high-stakes anonymity.
 
-%description -l pl
-Tor to oparty na po³±czeniach system anonimowej komunikacji o ma³ych
-opó¼nieniach.
+%description -l pl.UTF-8
+Tor to oparty na poÅ‚Ä…czeniach system anonimowej komunikacji o maÅ‚ych
+opÃ³Åºnieniach.
 
-Ten pakiet dostarcza program "tor", s³u¿±cy zarówno jako klient, jak i
-wêze³ przeka¼nikowy. Skrypty automatycznie tworz± u¿ytkownika i grupê
-"tor" i konfiguruj± tora do dzia³ania jako demon po uruchomieniu
+Ten pakiet dostarcza program "tor", sÅ‚uÅ¼Ä…cy zarÃ³wno jako klient, jak i
+wÄ™zeÅ‚ przekaÅºnikowy. Skrypty automatycznie tworzÄ… uÅ¼ytkownika i grupÄ™
+"tor" i konfigurujÄ… tora do dziaÅ‚ania jako demon po uruchomieniu
 systemu.
 
-Aplikacje ³±cz± siê z lokalnym proxy Tor przy u¿yciu protoko³u SOCKS.
-Lokalne proxy wybiera ¶cie¿kê poprzez zbiór przeka¼ników, z których
-ka¿dy zna swojego poprzednika i nastêpnika, ale ¿adnego wiêcej. Ruch
-przychodz±cy jest rozpakowywany przy u¿yciu klucza symetrycznego na
-ka¿dym przeka¼niku, który ods³ania kolejny przeka¼nik.
+Aplikacje Å‚Ä…czÄ… siÄ™ z lokalnym proxy Tor przy uÅ¼yciu protokoÅ‚u SOCKS.
+Lokalne proxy wybiera Å›cieÅ¼kÄ™ poprzez zbiÃ³r przekaÅºnikÃ³w, z ktÃ³rych
+kaÅ¼dy zna swojego poprzednika i nastÄ™pnika, ale Å¼adnego wiÄ™cej. Ruch
+przychodzÄ…cy jest rozpakowywany przy uÅ¼yciu klucza symetrycznego na
+kaÅ¼dym przekaÅºniku, ktÃ³ry odsÅ‚ania kolejny przekaÅºnik.
 
-Uwaga: Tor nie oczyszcza protoko³ów. Oznacza to, ¿e istnieje
-niebezpieczeñstwo, ¿e protoko³y aplikacji i powi±zane programy mog±
-odkryæ informacje o pochodzeniu. Tor polega na Privoxy i podobnych
-oczyszczaczach protoko³ów w celu rozwi±zania tego problemu. To jest
-kod alpha, wiêc mo¿e mieæ wiêcej b³êdów psuj±cych anonimowo¶æ ni¿ kod
-wydany. Obecna sieæ jest bardzo ma³a - co w dalszym stopniu ogranicza
-zapewnian± anonimowo¶æ. Tor aktualnie nie nadaje siê do zadañ
-wymagaj±cych anonimowo¶ci na wysok± stawkê.
+Uwaga: Tor nie oczyszcza protokoÅ‚Ã³w. Oznacza to, Å¼e istnieje
+niebezpieczeÅ„stwo, Å¼e protokoÅ‚y aplikacji i powiÄ…zane programy mogÄ…
+odkryÄ‡ informacje o pochodzeniu. Tor polega na Privoxy i podobnych
+oczyszczaczach protokoÅ‚Ã³w w celu rozwiÄ…zania tego problemu. To jest
+kod alpha, wiÄ™c moÅ¼e mieÄ‡ wiÄ™cej bÅ‚Ä™dÃ³w psujÄ…cych anonimowoÅ›Ä‡ niÅ¼ kod
+wydany. Obecna sieÄ‡ jest bardzo maÅ‚a - co w dalszym stopniu ogranicza
+zapewnianÄ… anonimowoÅ›Ä‡. Tor aktualnie nie nadaje siÄ™ do zadaÅ„
+wymagajÄ…cych anonimowoÅ›ci na wysokÄ… stawkÄ™.
 
 %prep
 %setup -q
