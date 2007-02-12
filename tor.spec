@@ -1,5 +1,5 @@
 Summary:	Anonymizing overlay network for TCP (The onion router)
-Summary(pl.UTF-8):   Sieć nakładkowa dla TCP zapewniająca anonimowość (router cebulowy)
+Summary(pl.UTF-8):	Sieć nakładkowa dla TCP zapewniająca anonimowość (router cebulowy)
 Name:		tor
 Version:	0.1.1.22
 Release:	4
