@@ -2,7 +2,7 @@ Summary:	Anonymizing overlay network for TCP (The onion router)
 Summary(pl.UTF-8):	Sieć nakładkowa dla TCP zapewniająca anonimowość (router cebulowy)
 Name:		tor
 Version:	0.1.1.26
-Release:	2
+Release:	3
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://tor.eff.org/dist/%{name}-%{version}.tar.gz
@@ -91,7 +91,7 @@ install -D %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
 install -d $RPM_BUILD_ROOT/var/lib/%{name}
 install -d $RPM_BUILD_ROOT/var/run/%{name}
-install -d $RPM_BUILD_ROOT/var/log/{,archiv/}%{name}
+install -d $RPM_BUILD_ROOT/var/log/{,archive/}%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
