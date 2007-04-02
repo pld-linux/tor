@@ -129,4 +129,4 @@ fi
 %dir %attr(750,root,tor) /var/lib/%{name}
 %dir %attr(750,root,tor) /var/run/%{name}
 %dir %attr(750,root,tor) /var/log/%{name}
-%dir %attr(750,root,tor) /var/log/archiv/%{name}
+%dir %attr(750,root,tor) /var/log/archive/%{name}
