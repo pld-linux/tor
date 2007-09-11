@@ -23,6 +23,7 @@ Requires(pre):	/usr/sbin/useradd
 Requires:	rc-scripts
 Provides:	group(tor)
 Provides:	user(tor)
+Conflicts:	logrotate < 3.7.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
