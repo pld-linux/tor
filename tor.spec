@@ -12,7 +12,7 @@ Source2:	%{name}.init
 Source3:	%{name}.sysconfig
 URL:		http://www.torproject.org/
 # http://archives.seul.org/or/announce/Feb-2009/msg00000.html
-#BuildRequires:	security(0.2.0.34)
+BuildRequires:	security(0.2.0.34)
 BuildRequires:	libevent-devel >= 1.1
 BuildRequires:	openssl-devel >= 0.9.6
 BuildRequires:	rpm-build >= 4.0
