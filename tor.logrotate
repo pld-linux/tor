@@ -1,8 +1,0 @@
-# $Id$
-
-/var/log/tor/* {
-	olddir /var/log/archive/tor
-	postrotate
-		/sbin/service tor reload || :
-	endscript
-}
