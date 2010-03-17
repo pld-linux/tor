@@ -1,12 +1,12 @@
 Summary:	Anonymizing overlay network for TCP (The onion router)
 Summary(pl.UTF-8):	Sieć nakładkowa dla TCP zapewniająca anonimowość (router cebulowy)
 Name:		tor
-Version:	0.2.1.24
+Version:	0.2.1.25
 Release:	1
 License:	BSD-like
 Group:		Networking/Daemons
 Source0:	http://www.torproject.org/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	cb5629b2709ada82d34c22fef3ed77a9
+# Source0-md5:	f58540b3c5835ac4f5de1b02bbddc703
 Source1:	%{name}.logrotate
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
@@ -132,4 +132,5 @@ fi
 %dir %attr(750,root,tor) /var/lib/%{name}
 %dir %attr(750,root,tor) /var/run/%{name}
 %dir %attr(750,root,tor) /var/log/%{name}
+%dir %attr(750,root,tor) /var/log/archive
 %dir %attr(750,root,tor) /var/log/archive/%{name}
