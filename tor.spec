@@ -10,6 +10,7 @@ Source0:	http://www.torproject.org/dist/%{name}-%{version}.tar.gz
 Source1:	%{name}.logrotate
 Source2:	%{name}.init
 Source3:	%{name}.sysconfig
+Source4:	%{name}.tmpfiles
 URL:		http://www.torproject.org/
 # http://archives.seul.org/or/announce/Feb-2009/msg00000.html
 BuildRequires:	libevent-devel >= 1.1
@@ -83,6 +84,8 @@ wymagających anonimowości na wysoką stawkę.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT/var/{{lib,run}/%{name},log/{,archive/}%{name}} \
+	$RPM_BUILD_ROOT/usr/lib/tmpfiles.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -91,10 +94,7 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/torrc{.sample,}
 install -D %{SOURCE1} $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 install -D %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 install -D %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/%{name}
-
-install -d $RPM_BUILD_ROOT/var/lib/%{name}
-install -d $RPM_BUILD_ROOT/var/run/%{name}
-install -d $RPM_BUILD_ROOT/var/log/{,archive/}%{name}
+install %{SOURCE4} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/%{name}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -129,6 +129,7 @@ fi
 %attr(640,root,tor)  %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/*
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/*
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}
+/usr/lib/tmpfiles.d/%{name}.conf
 %dir %attr(750,root,tor) /var/lib/%{name}
 %dir %attr(750,root,tor) /var/run/%{name}
 %dir %attr(750,root,tor) /var/log/%{name}
